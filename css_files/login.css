@@ -1,3 +1,7 @@
+body {
+	background-color: #d2691e;
+}
+
 .login_class {
 	background-color: lightgray;
 	display: block;
@@ -8,6 +12,13 @@
 	border-radius: 2%;
 }
 
+.verifcation_class {
+	display: block;
+	width: 750px;
+	height: 30px;
+	margin: auto;
+}
+
 .registration {
 	background-color: lightgray;
 	display: block;
@@ -16,6 +27,13 @@
 	margin-top: 20%;
 	padding: 5px;
 	border-radius: 2%;
+}
+
+#veri_zergling {
+	width: 30%;
+	margin-left: 30%;
+	margin-right: auto;
+	margin-top: 7%;
 }
 
 #login_form {

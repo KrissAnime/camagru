@@ -21,5 +21,6 @@
 			<a href="./login.php">Already Registered? Log In Now!</a>
 		</form>
 	</div>
+	<script></script>
 </body>
 </html>
