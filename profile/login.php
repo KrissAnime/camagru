@@ -14,12 +14,21 @@
 		<a href="../index/index.php"><h1>Home</h1></a>
 	</div>
 	<div class="login_class">
-		<form  id="login_form">
-			<h3>Username:</h3> <input type="text" size="30" id="user" name="username"><br/>
-			<h3>Password:</h3> <input type="password" size="30" id="pass" name="password"><br/><br/>
-			<button onclick="check_login()" type="button" id="login">Login</button>
+		<form action="user_login.php" method="post" id="login_form" name="login_form">
+			<h3>Username:</h3> <input type="text" size="30" id="username" name="username"><br/>
+			<h3>Password:</h3> <input type="password" size="30" id="password" name="password"><br/><br/>
+			<button type="submit" id="login">Login</button>
 			<a href="./registration.php">New Account? Register Here!</a>
 		</form>
+	</div>
+	<div id="error">
+		<?php
+			if (isset($_GET['error'])) {
+				if ($_GET['error'] === 'invalid_user') {
+					echo "<br>"."Invalid User Name Or Password";
+				}
+			}	
+		?>
 	</div>
 </body>
 </html>
