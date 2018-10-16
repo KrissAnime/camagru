@@ -8,6 +8,7 @@
 <body>
 	<div class="menu_bar">
 		<a href="../functions/check_session.php"><i class="glyphicon glyphicon-user" id="login_link"></i></a>
+		<a href="../functions/check_session.php"><i class="logout_link" id="logout_link"></i></a>
 	</div>
 </body>
 </html>
