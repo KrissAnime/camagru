@@ -23,10 +23,16 @@ body {
 	background-color: lightgray;
 	display: block;
 	width: 350px;
-	margin: auto;
-	margin-top: 20%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 7%;
 	padding: 5px;
 	border-radius: 2%;
+}
+
+#error {
+	text-align: center;
+	font-size: 14;
 }
 
 #veri_zergling {

@@ -1,5 +1,6 @@
 <?php
 
+require('../setup/install.php');
 require_once('../templates/header.php');
 require_once('../templates/menu_bar.php');
 require_once('../templates/center.php');
