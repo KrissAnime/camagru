@@ -1,14 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" href="../css_files/menu_bar.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-<body>
-	<div class="menu_bar">
-		<a href="../functions/check_session.php"><i class="glyphicon glyphicon-user" id="login_link"></i></a>
-		<a href="../functions/check_session.php"><i class="logout_link" id="logout_link"></i></a>
+<div class="w3-bar w3-black">
+	<a href="../index/index.php" class="w3-bar-item w3-button">Home</a>
+	<a href="../index/editing.php" class="w3-bar-item w3-button">Edit</a>
+	<a href="../index/upload.php" class="w3-bar-item w3-button">Upload</a>
+	<div class="w3-container" id="profile_drop">
+		<div class="w3-dropdown-hover">
+	   		<button class="w3-button w3-black">User</button>
+			<div class="w3-dropdown-content w3-bar-block w3-border">
+			<?php
+				if ($_SESSION['logged'] === "user" || $_SESSION['admin']) {
+					?>
+						<a href="../profile/profile.php" class="w3-bar-item w3-button">Profile</a>
+						<a href="../profile/logout.php" class="w3-bar-item w3-button">Sign Out</a>
+					<?php
+				}
+				else {
+					?>
+					<a href="../profile/login.php" class="w3-bar-item w3-button">Sign In</a>
+   					<a href="../profile/registration.php" class="w3-bar-item w3-button">Register</a>
+					<?php
+				}
+			?>
+	   		</div>
+		</div>
 	</div>
-</body>
-</html>
+</div>

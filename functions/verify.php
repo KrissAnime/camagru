@@ -2,8 +2,8 @@
 
 function add_user($data, $con){
 	$password = encryption($data['password']);
-	$sql = "INSERT INTO `camagru`.`users` (firstname, lastname, username, email, `password`)
-	 	VALUES ('".$data['firstname']."', '".$data['lastname']."', '".$data['username']."', '".$data['email']."', '".$password."');";
+	$sql = "INSERT INTO `camagru`.`users` (firstname, lastname, username, email, `password`, verified, `admin`)
+	 	VALUES ('".$data['firstname']."', '".$data['lastname']."', '".$data['username']."', '".$data['email']."', '".$password."', 0, 0);";
 	$con->exec($sql);
 }
 

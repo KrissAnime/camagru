@@ -1,7 +1,3 @@
-body {
-	background-color: #d2691e;
-}
-
 .menu_bar {
 	background-color: grey;
 	width: 100%;
@@ -13,5 +9,9 @@ body {
 #login_link {
 	float: right;
 	color: black;
-	font-size: 35px;
+	font-size: 25px;
+}
+
+#profile_drop {
+	float: right;
 }
