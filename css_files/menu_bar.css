@@ -6,12 +6,6 @@
 	display: block;
 }
 
-#login_link {
-	float: right;
-	color: black;
-	font-size: 25px;
-}
-
 #profile_drop {
-	float: right;
+	float: left;
 }

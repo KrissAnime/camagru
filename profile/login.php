@@ -27,7 +27,7 @@
 				if ($_GET['error'] === 'invalid_user') {
 					echo "<br>"."Invalid User Name Or Password";
 				}
-			}	
+			}
 		?>
 	</div>
 </body>

@@ -3,12 +3,12 @@
 echo "Before requirement<br>";
 
 require('../setup/install.php');
-require('../functions/verify.php');
+require_once('../functions/verify.php');
 
 if (isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) && !empty($_POST['lastname'])
 	&& isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['username']) && !empty($_POST['username'])
 	&& isset($_POST['password']) && !empty($_POST['password'])){
-	
+
 	$data = array('firstname' => $_POST['firstname'],
 			'lastname' => $_POST['lastname'],
 			'username' => $_POST['username'],

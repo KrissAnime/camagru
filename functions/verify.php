@@ -8,9 +8,9 @@ function add_user($data, $con){
 }
 
 function is_new_user($username, $email, $con) {
-    $sql = $con->prepare("SELECT `users`.`username`, `users`.`email` FROM `camagru`.`users`"); 
+    $sql = $con->prepare("SELECT `users`.`username`, `users`.`email` FROM `camagru`.`users`");
 	$sql->execute();
-	$sql->setFetchMode(PDO::FETCH_ASSOC); 
+	$sql->setFetchMode(PDO::FETCH_ASSOC);
 
 	while ($row = $sql->fetch()){
 		if ($row['username'] === $username || $row['email'] === $email){

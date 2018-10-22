@@ -7,7 +7,8 @@
 	   		<button class="w3-button w3-black">User</button>
 			<div class="w3-dropdown-content w3-bar-block w3-border">
 			<?php
-				if ($_SESSION['logged'] === "user" || $_SESSION['admin']) {
+				require_once('../setup/install.php');
+				if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
 					?>
 						<a href="../profile/profile.php" class="w3-bar-item w3-button">Profile</a>
 						<a href="../profile/logout.php" class="w3-bar-item w3-button">Sign Out</a>
