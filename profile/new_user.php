@@ -21,6 +21,7 @@ if (isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['l
 		header('Location: registration.php?error=password');
 	}
 	else if (is_new_user($data['username'], $data['email'], $con)){
+		session_start();
 		add_user($data, $con);
 		$_SESSION['logged'] = "new_user";
 		header('Location: verification.php');

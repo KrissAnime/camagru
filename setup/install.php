@@ -2,17 +2,11 @@
 
 $admin_name = 'root';
 $admin_server = 'localhost';
-$admin_password = '';
+$admin_password = 'Asuka2016';
 $admin_db = 'camagru';
 
 include ('../functions/verify.php');
 
-
-if (!isset($_SESSION['current']) && !isset($_SESSION['logged'])){
-	session_start();
-	$_SESSION['current'] = "";
-	$_SESSION['logged'] = "";
-}
 
 try {
 	$con = new PDO("mysql:host=".$admin_server, $admin_name, $admin_password);
@@ -29,8 +23,33 @@ try {
 			`email` VARCHAR(50) NOT NULL ,
 			`password` VARCHAR(1000) NOT NULL,
 			`verified` INT(1),
-			`admin` INT (1))";
+			`admin` INT (1) ,
+			`profile` VARCHAR(36))";
+
 	$con->exec($sql);
+
+	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`images` (
+		`user_id` INT(6) NOT NULL PRIMARY KEY,
+		`img_name` VARCHAR(37) NOT NULL ,
+		`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
+	$con->exec($sql);
+
+	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`comments` (
+		`user_id` INT(6) NOT NULL PRIMARY KEY,
+		`img_name` VARCHAR(37) NOT NULL ,
+		`comment` VARCHAR (120) NOT NULL ,
+		`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
+	$con->exec($sql);
+
+	if (!file_exists('../images/')){
+		mkdir('../images/');
+	}
+	
+	if (!file_exists('../images/profile/')){
+		mkdir('../images/profile/');
+	}
 
 	$sql = $con->prepare("SELECT `camagru`.`users`.`username` FROM `camagru`.`users`");
 	$sql->execute();

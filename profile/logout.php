@@ -1,9 +1,10 @@
 <?php
 
+session_start();
 require('../setup/install.php');
 
-session_unset($_SESSION['current']);
-session_unset($_SESSION['logged']);
+session_unset();
+session_destroy();
 
 $con = NULL;
 

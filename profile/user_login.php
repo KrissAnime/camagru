@@ -12,21 +12,26 @@ if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['use
 	// echo $username."<br>".$password."<br>";
 	// echo "blank test <br>";
 
-	$sql = $con->prepare("SELECT `camagru`.`users`.`user_id`, `camagru`.`users`.`username`, `camagru`.`users`.`password` FROM `camagru`.`users`");
+	$sql = $con->prepare("SELECT * FROM `camagru`.`users`");
 	$sql->execute();
 	$sql->setFetchMode(PDO::FETCH_ASSOC);
 
 	$i = 1;
-	while ($row = $sql->fetch()){
+	$val = $sql->fetchAll();
+	// print_r($val);
+	foreach($val as $row){
 		if ($row['username'] === $username && $row['password'] === $password){
+			session_start();
 			$_SESSION['logged'] = "user";
 			$_SESSION['current'] = $row['user_id'];
-			header('Location: ../index/index.php');
+			 header('Location: ../index/index.php');
+			// print_r($_SESSION);
 		}
-		header('Location: ../index/index.php');
+		// header('Location: ../index/index.php');
 	}
 
-	header('Location: login.php?error=invalid_user');
+	// //header('Location: login.php?error=invalid_user');
+	// echo "string";
 }
 
 ?>
