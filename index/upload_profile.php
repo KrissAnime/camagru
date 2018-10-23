@@ -45,10 +45,12 @@ if(isset($_FILES['image'])){
             
             if (!empty($username)) {
                 
-                $sql = "INSERT INTO `camagru`.`users` (`profile`)
-                        VALUES ('".$profile."')";
+                $sql = "UPDATE `camagru`.`users`
+                        SET `profile` = '".$profile."'
+                        WHERE `camagru`.`users`.`user_id` = '".$user_id."'";
                 // echo "Boom boom<br/>";
                 $con->exec($sql);
+                //echo "Boom boom<br/>";
                 move_uploaded_file($file_tmp, "../images/profile/".$profile);
                 echo "Upload Success!";
                 header('Location: ../profile/profile.php');

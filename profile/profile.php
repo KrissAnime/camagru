@@ -32,10 +32,11 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
     
 }
 
-echo $pic;
+// echo $pic;
+$link = "/camagru/images/profile/".$pic;
 
-echo    "<div class='w3-card' style='width:15%'>
-                <img src='".$pic."' alt='profile' width='200px'/><br/>
+echo    "<div class='w3-card'>
+                <img src='".$link."' alt='profile' width='300px'/><br/>
                 <a href='../index/upload_profile.php'>Edit</a>
         </div>
         "
