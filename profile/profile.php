@@ -22,10 +22,10 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
 	foreach($val as $row){
 		if ($row['user_id'] === $user && !empty($row['profile'])){
             $pic = $row['profile'];
-            // $username = $row['username'];
-            // $lastname = $row['lastname'];
-            // $firstname = $row['firstname'];
-            // $email = $row['email'];
+            $username = trim($row['username']);
+            $lastname = trim($row['lastname']);
+            $firstname = trim($row['firstname']);
+            $email = trim($row['email']);
             break ;
 		}
     }
@@ -35,9 +35,12 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
 // echo $pic;
 $link = "/camagru/images/profile/".$pic;
 
-echo    "<div class='w3-card'>
-                <img src='".$link."' alt='profile' width='300px'/><br/>
-                <a href='../index/upload_profile.php'>Edit</a>
+echo    "<div class='w3-w3-border w3-padding' alt='profile' id='profile'>
+            <img src='".$link."' alt='profile' width='300px'/><br/>
+            <a href='../index/upload_profile.php'>Edit</a>
+            <div class='profile_details'>
+                <h6>$username<br/>$lastname<br/>$firstname<br/>$email<br/></h6>
+            </div>
         </div>
         "
        

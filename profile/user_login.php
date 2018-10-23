@@ -18,16 +18,18 @@ if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['use
 
 	$i = 1;
 	$val = $sql->fetchAll();
-	// print_r($val);
 	foreach($val as $row){
 		if ($row['username'] === $username && $row['password'] === $password){
 			session_start();
-			$_SESSION['logged'] = "user";
+			if ($row['admin'] === 0){
+				$_SESSION['logged'] = "user";
+			}
+			else{
+				$_SESSION['logged'] = "admin";
+			}
 			$_SESSION['current'] = $row['user_id'];
-			 header('Location: ../index/index.php');
-			// print_r($_SESSION);
+			header('Location: ../index/index.php');
 		}
-		// header('Location: ../index/index.php');
 	}
 
 	// //header('Location: login.php?error=invalid_user');
