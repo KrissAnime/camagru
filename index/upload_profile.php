@@ -1,4 +1,7 @@
 <?php
+
+require('../templates/header.php');
+require('../templates/menu_bar.php');
 require_once('../setup/install.php');
 session_start();
 
@@ -10,7 +13,16 @@ if(isset($_FILES['image'])){
     $file_type = $_FILES['image']['type'];
     $file_ext = strtolower(end(explode('.',$_FILES['image']['name'])));
     
+    $enc = "d7cz5j7";
     $ext = array("jpeg","jpg","png");
+    
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $_FILES['image']['tmp_name']);
+    if ($mime != 'image/jpeg' && $mime != 'image/png') {
+        $errors[] = "extension not allowed, please choose a JPEG, JPG or PNG file.";
+    }
+    
+    finfo_close($finfo);
     
     if(in_array($file_ext,$ext) === false){
         $errors[]="extension not allowed, please choose a JPEG, JPG or PNG file.";
@@ -41,19 +53,23 @@ if(isset($_FILES['image'])){
                 }
             }
             
-            $profile = md5($username.$file_name).'.'.$file_ext;
+            $profile = md5($user_id.$file_name.$enc).'.'.$file_ext;
             
             if (!empty($username)) {
-                
-                $sql = "UPDATE `camagru`.`users`
-                        SET `profile` = '".$profile."'
-                        WHERE `camagru`.`users`.`user_id` = '".$user_id."'";
-                $con->exec($sql);
-                move_uploaded_file($file_tmp, "../images/profile/".$profile);
-                echo "Upload Success!";
-                header('Location: ../profile/profile.php');
+                try {
+                    $sql = "UPDATE `camagru`.`users`
+                    SET `profile` = '".$profile."'
+                    WHERE `camagru`.`users`.`user_id` = '".$user_id."'";
+                    $con->exec($sql);
+                    move_uploaded_file($file_tmp, "../images/profile/".$profile);
+                    echo "Upload Success!";
+                    header('Location: ../profile/profile.php');
+                } 
+                catch(PDOException $e) {
+                    echo "Connection failed: " . $e->getMessage();
                 }
             }
+        }
         else {
             header('Location: ../profile/login.php');
         }

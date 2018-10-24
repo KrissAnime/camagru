@@ -2,7 +2,7 @@
 <footer>
 	<hr/>
 	<div id="logo">
-		Bottom of page
+		Copyright &copy; cbester 2018
 	</div>
 </footer>
 </body>
