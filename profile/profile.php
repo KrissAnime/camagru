@@ -5,7 +5,7 @@ require('../templates/menu_bar.php');
 require_once('../setup/install.php');
 session_start();
 
-$pic = "/camagru/images/no_profile.png";
+$pic = "../images/profile/no_profile.png";
 
 if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
     $user = $_SESSION['current'];
@@ -21,30 +21,19 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
 	$val = $sql->fetchAll();
 	foreach($val as $row){
 		if ($row['user_id'] === $user && !empty($row['profile'])){
-            $pic = $row['profile'];
-            $username = trim($row['username']);
-            $lastname = trim($row['lastname']);
-            $firstname = trim($row['firstname']);
-            $email = trim($row['email']);
+            $pic = "../images/profile/".$row['profile'];
             break ;
 		}
     }
     
 }
 
-// echo $pic;
-$link = "/camagru/images/profile/".$pic;
 
 echo    "<div class='w3-w3-border w3-padding' alt='profile' id='profile'>
-            <img src='".$link."' alt='profile' width='300px'/><br/>
-            <a href='../index/upload_profile.php'>Edit</a>
-            <div class='profile_details'>
-                <h6>$username<br/>$lastname<br/>$firstname<br/>$email<br/></h6>
-            </div>
+            <img src='".$pic."' alt='profile' width='300px'/><br/>
+            <a href='../functions/upload_profile.php' class='upload'>Upload</a>
         </div>
-        "
-       
+        ";
 
-
-
+require('../templates/footer.php');
 ?>

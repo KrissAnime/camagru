@@ -1,5 +1,7 @@
 <?php
 	require('../setup/install.php');
+	require('../templates/header.php');
+	require('../templates/menu_bar.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,9 +12,6 @@
 		<title>Registration</title>
 	</head>
 	<body>
-		<div class="header_class">
-			<a href="../index/index.php"><h1>Home</h1></a>
-		</div>
 		<div class="registration">
 			<form action="new_user.php" method="post" id="registration_form" name="registration_form">
 				<h4>Name:</h4> <input type="text" size="30" id="firstname" name="firstname"><br/>
@@ -44,5 +43,8 @@
 			</div>
 		</div>
 
-	</body>
-</html>
+<?php
+
+require('../templates/footer.php');
+
+?>

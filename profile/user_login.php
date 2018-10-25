@@ -16,18 +16,22 @@ if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['use
 	$sql->execute();
 	$sql->setFetchMode(PDO::FETCH_ASSOC);
 
-	$i = 1;
 	$val = $sql->fetchAll();
+	$check = 0;
 	foreach($val as $row){
-		if ($row['username'] === $username && $row['password'] === $password){
+		if (strtolower($row['username']) === strtolower($username) && $row['password'] === $password){
 			session_start();
 			$_SESSION['logged'] = "user";
 			$_SESSION['current'] = $row['user_id'];
-			header('Location: ../index/index.php');
+			$check = 1;
 		}
 	}
-
-	header('Location: login.php?error=invalid_user');
+	if ($check){
+		header('Location: ../index/index.php');
+	}
+	else{
+		header('Location: login.php?error=invalid_user');
+	}
 	// echo "string";
 }
 

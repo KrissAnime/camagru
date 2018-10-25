@@ -1,5 +1,7 @@
 <?php
 	require('../setup/install.php');
+	require('../templates/header.php');
+	require('../templates/menu_bar.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,9 +12,6 @@
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
-	<div class="header_class">
-		<a href="../index/index.php"><h1>Home</h1></a>
-	</div>
 	<div class="login_class">
 		<form action="user_login.php" method="post" id="login_form" name="login_form">
 			<h3>Username:</h3> <input type="text" size="30" id="username" name="username"><br/>
@@ -30,5 +29,8 @@
 			}
 		?>
 	</div>
-</body>
-</html>
+<?php
+
+require('../templates/footer.php');
+
+?>

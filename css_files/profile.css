@@ -1,4 +1,8 @@
 #profile {
-    border: solid black 1px;
     width: 20%;
+}
+
+.profile_details {
+    color: white;
+    font-size: 18px;
 }

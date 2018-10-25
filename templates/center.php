@@ -11,7 +11,7 @@ $sql->execute();
 $sql->setFetchMode(PDO::FETCH_ASSOC);
 $val = $sql->fetchAll();
 	
-echo "<div class='central_grid'>";
+echo "<div class='central_grid' l3 s2>";
 $x = 0;
 $i = 0;
 	

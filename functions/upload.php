@@ -19,15 +19,11 @@ if ($_SESSION['logged'] && ($_SESSION['logged'] === "user" || $_SESSION['logged'
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime = finfo_file($finfo, $_FILES['image']['tmp_name']);
-        if ($mime != 'image/jpeg' && $mime != 'image/png') {
+        if ($mime != 'image/jpeg' && $mime != 'image/png' || in_array($file_ext,$ext) === false) {
             $errors[] = "extension not allowed, please choose a JPEG, JPG or PNG file.";
         }
         
         finfo_close($finfo);
-
-        if(in_array($file_ext,$ext) === false){
-            $errors[] = "extension not allowed, please choose a JPEG, JPG or PNG file.";
-        }
         
         if($file_size > 4194304){
             $errors[] = 'File size must not be greater than 4 MB';
@@ -61,6 +57,7 @@ if ($_SESSION['logged'] && ($_SESSION['logged'] === "user" || $_SESSION['logged'
                     $sql->execute();
                     $sql->setFetchMode(PDO::FETCH_ASSOC);
                     
+                    $clear = 1;
                     $val = $sql->fetchAll();
                     foreach($val as $row){
                         if ($row['user_id'] === $user_id && $row['img_name'] === $profile){
