@@ -3,7 +3,7 @@
 require('header.php');
 require('menu_bar.php');
 require_once('config/setup.php');
-session_start();
+// session_start();
 
 $pic = "images/profile/no_profile.png";
 
@@ -25,13 +25,13 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
             break ;
 		}
     }
-    
+
 }
 
 
 echo    "<div class='w3-w3-border w3-padding' alt='profile' id='profile'>
             <img src='".$pic."' alt='profile' width='300px'/><br/>
-            <a href='functions/upload_profile.php' class='upload'>Upload</a>
+            <a href='upload_profile.php' class='upload'>Upload</a>
         </div>
         ";
 

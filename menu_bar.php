@@ -7,17 +7,13 @@
 	   		<button class="w3-button w3-black">User</button>
 			<div class="w3-dropdown-content w3-bar-block w3-border">
 			<?php
-				if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === "admin") {
-					?>
-						<a href="profile.php" class="w3-bar-item w3-button">Profile</a>
-						<a href="logout.php" class="w3-bar-item w3-button">Sign Out</a>
-					<?php
+				if ($_SESSION['logged'] == "user" || $_SESSION['logged'] == "admin") {
+						echo "<a href='profile.php' class='w3-bar-item w3-button'>Profile</a>
+							<a href='functions/logout.php' class='w3-bar-item w3-button'>Sign Out</a>";
 				}
 				else {
-					?>
-						<a href="login.php" class="w3-bar-item w3-button">Sign In</a>
-   						<a href="registration.php" class="w3-bar-item w3-button">Register</a>
-					<?php
+						echo "<a href='login.php' class='w3-bar-item w3-button'>Sign In</a>
+   							<a href='registration.php' class='w3-bar-item w3-button'>Register</a>";
 				}
 			?>
 	   		</div>

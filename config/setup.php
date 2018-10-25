@@ -1,7 +1,7 @@
 <?php
 
-include ('../functions/verify.php');
-include ('database.php');
+include('functions/verify.php');
+include('database.php');
 
 try {
 	$con = new PDO("mysql:host=".$admin_server, $admin_name, $admin_password);
@@ -9,7 +9,7 @@ try {
 	$sql = "CREATE DATABASE IF NOT EXISTS $admin_db";
 
 	$con->exec($sql);
-	
+
 	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`users` (
 		`user_id` INT(6) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		`firstname` VARCHAR(30) NOT NULL ,
@@ -20,14 +20,14 @@ try {
 		`verified` INT(1),
 		`admin` INT (1) ,
 		`profile` VARCHAR(36))";
-		
+
 		$con->exec($sql);
-		
+
 		$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`images` (
 			`user_id` INT(6) NOT NULL ,
 			`img_name` VARCHAR(40) NOT NULL PRIMARY KEY,
 			`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-			
+
 			$con->exec($sql);
 			$enc = "d7cz5j7";
 
@@ -64,21 +64,21 @@ try {
 				`img_name` VARCHAR(40) NOT NULL PRIMARY KEY,
 				`comment` VARCHAR (120) NOT NULL ,
 				`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-				
+
 				$con->exec($sql);
-				
+
 				if (!file_exists('../images/')){
 					mkdir('../images/');
 				}
-				
+
 				if (!file_exists('../images/profile/')){
 					mkdir('../images/profile/');
 				}
-				
+
 				$sql = $con->prepare("SELECT `camagru`.`users`.`username` FROM `camagru`.`users`");
 				$sql->execute();
 				$sql->setFetchMode(PDO::FETCH_ASSOC);
-				
+
 				$i = 1;
 				while ($row = $sql->fetch()){
 					if ($row['username'] === 'KrissAdmin'){
@@ -86,7 +86,7 @@ try {
 						break;
 					}
 				}
-				
+
 				if ($i){
 					$krissadmin = encryption('FroZ3nC@tSn1per');
 					$rootadmin = encryption('user123');
@@ -103,4 +103,3 @@ try {
 					echo "Connection failed: " . $e->getMessage();
 				}
 ?>
-				

@@ -10,11 +10,11 @@ $sql = $con->prepare(
 $sql->execute();
 $sql->setFetchMode(PDO::FETCH_ASSOC);
 $val = $sql->fetchAll();
-	
+
 echo "<div class='central_grid' l3 s2>";
 $x = 0;
 $i = 0;
-	
+
 foreach($val as $row){
 	$src = "images/".$row['img_name'];
 	// echo $src;
@@ -22,5 +22,5 @@ foreach($val as $row){
 	$x++;
 }
 echo "</div>";
-	
+
 ?>
