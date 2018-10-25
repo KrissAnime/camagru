@@ -16,7 +16,7 @@ if ($_SESSION['logged'] && ($_SESSION['logged'] === "user" || $_SESSION['logged'
         
         $enc = "d7cz5j7";
         $ext = array("jpeg","jpg","png");
-
+        
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime = finfo_file($finfo, $_FILES['image']['tmp_name']);
         if ($mime != 'image/jpeg' && $mime != 'image/png' || in_array($file_ext,$ext) === false) {
@@ -101,11 +101,13 @@ else{
 ?>
 
 <html>
-<body>
-<form action="" method="POST" enctype="multipart/form-data">
-<input type="file" name="image" />
-<input type="submit"/>
-</form>
+    <body>
+        <form action="" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" />
+            <input type="submit"/>
+        </form>
+<?php
 
-</body>
-</html>
+require('footer.php');
+
+?>
