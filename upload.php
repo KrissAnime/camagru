@@ -1,8 +1,8 @@
 <?php
 
-require('../templates/header.php');
-require('../templates/menu_bar.php');
-require_once('../setup/install.php');
+require('header.php');
+require('menu_bar.php');
+require_once('config/setup.php');
 session_start();
 
 if ($_SESSION['logged'] && ($_SESSION['logged'] === "user" || $_SESSION['logged'] === "admin") && $_SESSION['current'] && !empty($_SESSION['current'])){
@@ -71,7 +71,7 @@ if ($_SESSION['logged'] && ($_SESSION['logged'] === "user" || $_SESSION['logged'
                             $sql = "INSERT INTO `camagru`.`images` (`user_id`, `img_name`)
                             VALUES ('".$user_id."', '".$profile."')";
                             $con->exec($sql);
-                            move_uploaded_file($file_tmp, "../images/".$profile);
+                            move_uploaded_file($file_tmp, "images/".$profile);
                             echo "Upload Success!";
                         }
                         catch(PDOException $e) {
@@ -85,7 +85,7 @@ if ($_SESSION['logged'] && ($_SESSION['logged'] === "user" || $_SESSION['logged'
                 }
             }
             else {
-                header('Location: ../profile/login.php');
+                header('Location: login.php');
             }
         }
         else{
@@ -96,7 +96,7 @@ if ($_SESSION['logged'] && ($_SESSION['logged'] === "user" || $_SESSION['logged'
     }
 }
 else{
-    header('Location: ../profile/login.php');
+    header('Location: login.php');
 }
 ?>
 

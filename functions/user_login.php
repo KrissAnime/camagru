@@ -1,7 +1,7 @@
 <?php
 
-require_once('../setup/install.php');
-require_once('../functions/verify.php');
+require_once('../config/setup.php');
+require_once('verify.php');
 
 if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['username']) && !empty($_POST['username']) ){
 	$username = trim($_POST['username']);
@@ -9,8 +9,6 @@ if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['use
 
 	$con = new PDO("mysql:host=".$admin_server, $admin_name, $admin_password);
 	$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	// echo $username."<br>".$password."<br>";
-	// echo "blank test <br>";
 
 	$sql = $con->prepare("SELECT * FROM `camagru`.`users`");
 	$sql->execute();
@@ -27,12 +25,11 @@ if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['use
 		}
 	}
 	if ($check){
-		header('Location: ../index/index.php');
+		header('Location: ../index.php');
 	}
 	else{
-		header('Location: login.php?error=invalid_user');
+		header('Location: ../login.php?error=invalid_user');
 	}
-	// echo "string";
 }
 
 ?>

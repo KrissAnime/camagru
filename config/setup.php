@@ -1,11 +1,7 @@
 <?php
 
-$admin_name = 'root';
-$admin_server = 'localhost';
-$admin_password = 'Asuka2016';
-$admin_db = 'camagru';
-
 include ('../functions/verify.php');
+include ('database.php');
 
 try {
 	$con = new PDO("mysql:host=".$admin_server, $admin_name, $admin_password);
@@ -106,8 +102,5 @@ try {
 				catch(PDOException $e) {
 					echo "Connection failed: " . $e->getMessage();
 				}
-				
-				//echo "finished installation<br>";
-				
 ?>
 				

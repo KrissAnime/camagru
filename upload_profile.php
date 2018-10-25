@@ -1,8 +1,8 @@
 <?php
 
-require('../templates/header.php');
-require('../templates/menu_bar.php');
-require_once('../setup/install.php');
+require('header.php');
+require('menu_bar.php');
+require_once('config/setup.php');
 session_start();
 
 if(isset($_FILES['image'])){
@@ -61,9 +61,9 @@ if(isset($_FILES['image'])){
                     SET `profile` = '".$profile."'
                     WHERE `camagru`.`users`.`user_id` = '".$user_id."'";
                     $con->exec($sql);
-                    move_uploaded_file($file_tmp, "../images/profile/".$profile);
+                    move_uploaded_file($file_tmp, "images/profile/".$profile);
                     echo "Upload Success!";
-                    header('Location: ../profile/profile.php');
+                    header('Location: profile.php');
                 } 
                 catch(PDOException $e) {
                     echo "Connection failed: " . $e->getMessage();
@@ -71,7 +71,7 @@ if(isset($_FILES['image'])){
             }
         }
         else {
-            header('Location: ../profile/login.php');
+            header('Location: login.php');
         }
     }
     else {

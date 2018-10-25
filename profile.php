@@ -1,11 +1,11 @@
 <?php
 
-require('../templates/header.php');
-require('../templates/menu_bar.php');
-require_once('../setup/install.php');
+require('header.php');
+require('menu_bar.php');
+require_once('config/setup.php');
 session_start();
 
-$pic = "../images/profile/no_profile.png";
+$pic = "images/profile/no_profile.png";
 
 if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
     $user = $_SESSION['current'];
@@ -21,7 +21,7 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
 	$val = $sql->fetchAll();
 	foreach($val as $row){
 		if ($row['user_id'] === $user && !empty($row['profile'])){
-            $pic = "../images/profile/".$row['profile'];
+            $pic = "images/profile/".$row['profile'];
             break ;
 		}
     }
@@ -31,9 +31,9 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
 
 echo    "<div class='w3-w3-border w3-padding' alt='profile' id='profile'>
             <img src='".$pic."' alt='profile' width='300px'/><br/>
-            <a href='../functions/upload_profile.php' class='upload'>Upload</a>
+            <a href='functions/upload_profile.php' class='upload'>Upload</a>
         </div>
         ";
 
-require('../templates/footer.php');
+require('footer.php');
 ?>

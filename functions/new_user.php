@@ -1,9 +1,7 @@
 <?php
 
-echo "Before requirement<br>";
-
-require('../setup/install.php');
-require_once('../functions/verify.php');
+require('../config/setup.php');
+require_once('verify.php');
 
 if (isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) && !empty($_POST['lastname'])
 	&& isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['username']) && !empty($_POST['username'])
@@ -18,20 +16,20 @@ if (isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['l
 	);
 
 	if (!verify_user($data)){
-		header('Location: registration.php?error=password');
+		header('Location: ../registration.php?error=password');
 	}
 	else if (is_new_user($data['username'], $data['email'], $con)){
 		session_start();
 		add_user($data, $con);
 		$_SESSION['logged'] = "new_user";
-		header('Location: verification.php');
+		header('Location: ../verification.php');
 	}
 	else{
-		header('Location: registration.php?error=user_exist');
+		header('Location: ../registration.php?error=user_exist');
 	}
 }
 else {
-	header('Location: registration.php?error=empty_fields');
+	header('Location: ../registration.php?error=empty_fields');
 }
 
 ?>

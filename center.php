@@ -1,6 +1,6 @@
 <?php
 
-require_once('../setup/install.php');
+require_once('config/setup.php');
 
 $sql = $con->prepare(
 	"SELECT `img_name`
@@ -16,7 +16,7 @@ $x = 0;
 $i = 0;
 	
 foreach($val as $row){
-	$src = "../images/".$row['img_name'];
+	$src = "images/".$row['img_name'];
 	// echo $src;
 	echo "<div class='central_grid_item' style=\"background-image:url('$src')\"></div>";
 	$x++;
