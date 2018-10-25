@@ -53,7 +53,7 @@ if(isset($_FILES['image'])){
                 }
             }
             
-            $profile = md5($user_id.$file_name.$enc).'.'.$file_ext;
+            $profile = md5($user_id.$enc.$file_name).'.'.$file_ext;
             
             if (!empty($username)) {
                 try {

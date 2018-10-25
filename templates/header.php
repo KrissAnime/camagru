@@ -8,6 +8,7 @@ session_start();
 <html>
 <head>
 	<link rel="stylesheet" href="../css_files/header.css" />
+	<link rel="stylesheet" href="../css_files/login.css" />
 	<link rel="stylesheet" href="../css_files/side.css" />
 	<link rel="stylesheet" href="../css_files/menu_bar.css" />
 	<link rel="stylesheet" href="../css_files/center.css" />
@@ -18,6 +19,5 @@ session_start();
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
-	<div class="header_class"><h1>HEADER</h1>
-	</div>
+	<div class="header_class">Camagru</div>
 	<hr/>

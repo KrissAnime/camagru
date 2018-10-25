@@ -1,7 +1,7 @@
 <div class="w3-bar w3-black">
 	<a href="../index/index.php" class="w3-bar-item w3-button">Home</a>
 	<a href="../index/editing.php" class="w3-bar-item w3-button">Edit</a>
-	<a href="../index/upload.php" class="w3-bar-item w3-button">Upload</a>
+	<a href="../functions/upload.php" class="w3-bar-item w3-button">Upload</a>
 	<div class="w3-container" id="profile_drop">
 		<div class="w3-dropdown-hover">
 	   		<button class="w3-button w3-black">User</button>

@@ -13,7 +13,7 @@ function is_new_user($username, $email, $con) {
 	$sql->setFetchMode(PDO::FETCH_ASSOC);
 
 	while ($row = $sql->fetch()){
-		if ($row['username'] === $username || $row['email'] === $email){
+		if (strtolower($row['username']) === strtolower($username) || $row['email'] === $email){
 			return FALSE;
 		}
 	}
