@@ -26,6 +26,9 @@
 				if ($_GET['error'] === 'invalid_user') {
 					echo "<br>"."Invalid User Name Or Password";
 				}
+				if ($_GET['error'] === 'verify') {
+					echo "<br>"."Check Your Email For Verification Link";
+				}
 			}
 		?>
 	</div>

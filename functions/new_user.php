@@ -1,7 +1,7 @@
 <?php
 
 require('../config/setup.php');
-require_once('verify.php');
+require_once('../config/verify.php');
 
 if (isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) && !empty($_POST['lastname'])
 	&& isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['username']) && !empty($_POST['username'])
@@ -19,10 +19,16 @@ if (isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['l
 		header('Location: ../registration.php?error=password');
 	}
 	else if (is_new_user($data['username'], $data['email'], $con)){
-		session_start();
-		add_user($data, $con);
-		$_SESSION['logged'] = "new_user";
-		header('Location: ../verification.php');
+		if (filter_var($data['email'], FILTER_VALIDATE_EMAIL) === $data['email']){
+			add_user($data, $con);
+			verify_email($data['email']);
+			session_start();
+			$_SESSION['logged'] = "new_user";
+			header('Location: ../verification.php?verify=new_user');
+		}
+		else{
+			header('Location: ../registration.php?error=invalid_email');
+		}
 	}
 	else{
 		header('Location: ../registration.php?error=user_exist');

@@ -1,6 +1,10 @@
 <?php
 
-include('functions/verify.php');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+include('verify.php');
 include('database.php');
 
 try {
@@ -16,12 +20,20 @@ try {
 		`lastname` VARCHAR(30) NOT NULL ,
 		`username` VARCHAR(50) NOT NULL ,
 		`email` VARCHAR(50) NOT NULL ,
-		`password` VARCHAR(1000) NOT NULL,
-		`verified` INT(1),
+		`password` VARCHAR(255) NOT NULL,
+		`verified` INT(1) ,
 		`admin` INT (1) ,
 		`profile` VARCHAR(36))";
 
 		$con->exec($sql);
+
+	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`verification` (
+		`user_id` INT(6) NOT NULL PRIMARY KEY,
+		`email` VARCHAR(50) NOT NULL ,
+		`link` VARCHAR(50) NOT NULL )
+		ENGINE = InnoDB;";
+
+$con->exec($sql);
 
 		$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`images` (
 			`user_id` INT(6) NOT NULL ,
@@ -90,11 +102,13 @@ try {
 				if ($i){
 					$krissadmin = encryption('FroZ3nC@tSn1per');
 					$rootadmin = encryption('user123');
-					$sql = "INSERT INTO `camagru`.`users` (
+					$sql = $con->prepare("INSERT INTO `camagru`.`users` (
 						firstname, lastname, username, email, `password`, verified, `admin`)
-						VALUES ('Kriss', 'Anime', 'KrissAdmin', 'krissultimatum@gmail.com', '".$krissadmin."', 1, 1),
-						('user', 'test', 'user', 'user@setup.com', '".$rootadmin."', 1, 0)";
-						$con->exec($sql);
+						VALUES ('Kriss', 'Anime', 'KrissAdmin', 'krissultimatum@gmail.com', :pass1, 1, 1),
+						('user', 'test', 'user', 'user@setup.com', :pass2, 1, 0)");
+						$sql->bindParam(':pass1', $rootadmin);
+						$sql->bindParam(':pass2', $krissadmin);
+						$sql->execute();
 					}
 					//	 echo "Admin users created<br>";
 					//	echo "Camagru user table created<br>";

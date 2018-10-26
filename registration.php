@@ -38,6 +38,9 @@
 						if ($_GET['error'] === 'empty_fields') {
 							echo "<br>"."All Fields Are Compulsory";
 						}
+						if ($_GET['error'] === 'invalid_email') {
+							echo "<br>"."Valid Email Address Required";
+						}
 					}
 				?>
 			</div>
@@ -45,6 +48,6 @@
 
 <?php
 
-require('../templates/footer.php');
+require('footer.php');
 
 ?>

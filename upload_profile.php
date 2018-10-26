@@ -58,8 +58,10 @@ if(isset($_FILES['image'])){
             if (!empty($username)) {
                 try {
                     $sql = "UPDATE `camagru`.`users`
-                    SET `profile` = '".$profile."'
-                    WHERE `camagru`.`users`.`user_id` = '".$user_id."'";
+                    SET `profile` = :tag
+                    WHERE `camagru`.`users`.`user_id` = :user";
+                    $sql->bindParam(':tag', $profile);
+                    $sql->bindParam(':user', $user_id);
                     $con->exec($sql);
                     move_uploaded_file($file_tmp, "images/profile/".$profile);
                     echo "Upload Success!";
