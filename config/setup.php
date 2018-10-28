@@ -100,8 +100,11 @@ $con->exec($sql);
 				}
 
 				if ($i){
-					$krissadmin = encryption('FroZ3nC@tSn1per');
-					$rootadmin = encryption('user123');
+					$krissenc  = encryption('FroZ3nC@tSn1per');
+					$krissadmin = password_hash($krissenc, PASSWORD_DEFAULT);
+					$rootenc = encryption('user123');
+					echo $rootenc;
+					$rootadmin = password_hash($rootenc, PASSWORD_DEFAULT);
 					$sql = $con->prepare("INSERT INTO `camagru`.`users` (
 						firstname, lastname, username, email, `password`, verified, `admin`)
 						VALUES ('Kriss', 'Anime', 'KrissAdmin', 'krissultimatum@gmail.com', :pass1, 1, 1),

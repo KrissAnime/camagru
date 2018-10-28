@@ -4,7 +4,8 @@ function add_user($data, $con){
 	// echo "<pre>";
 	// print_r($data);
 	// echo "</pre>";
-	$password = encryption($data['password']);
+	$pass = encryption($data['password']);
+	$password = password_hash($pass, PASSWORD_DEFAULT);
 	// echo "before";
 	$sql = $con->prepare("INSERT INTO `camagru`.`users`
 	(`firstname`, `lastname`, `username`, `email`, `password`, `verified`, 	`admin`, `profile`)
@@ -46,22 +47,19 @@ function encryption($password) {
 	if ($length >= 8 && $length < 20){
 		$part1 = $enc_key.substr($password, 0, 4);
 		$part2 = $enc_key3.substr($password, 4);
-		$new = $part1.$enc_key2.$part2;
-		$key = password_hash($new, PASSWORD_DEFAULT);
+		$new = $part1.$part2.$enc_key2;
 	}
 	else if ($length < 8){
 		$part1 = $enc_key.substr($password, 0, 3);
 		$part2 = $enc_key3.substr($password, 3);
 		$new = $part1.$enc_key2.$part2;
-		$key = password_hash($new, PASSWORD_DEFAULT);
 	}
 	else{
 		$part1 = $enc_key.substr($password, 0, $length / 2);
 		$part2 = $enc_key3.substr($password, $length / 2);
-		$new = $part1.$enc_key2.$part2;
-		$key = password_hash($new, PASSWORD_DEFAULT);
+		$new = $part2.$enc_key2.$part1;
 	}
-	return $key;
+	return $new;
 }
 
 function verify_email($email){
