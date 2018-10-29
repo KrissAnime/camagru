@@ -4,8 +4,8 @@ function add_user($data, $con){
 	// echo "<pre>";
 	// print_r($data);
 	// echo "</pre>";
-	$pass = encryption($data['password']);
-	$password = password_hash($pass, PASSWORD_DEFAULT);
+	$password = encryption($data['password']);
+
 	// echo "before";
 	$sql = $con->prepare("INSERT INTO `camagru`.`users`
 	(`firstname`, `lastname`, `username`, `email`, `password`, `verified`, 	`admin`, `profile`)
@@ -48,25 +48,28 @@ function encryption($password) {
 		$part1 = $enc_key.substr($password, 0, 4);
 		$part2 = $enc_key3.substr($password, 4);
 		$new = $part1.$part2.$enc_key2;
+		$key = hash('whirlpool', $new);
 	}
 	else if ($length < 8){
 		$part1 = $enc_key.substr($password, 0, 3);
 		$part2 = $enc_key3.substr($password, 3);
 		$new = $part1.$enc_key2.$part2;
+		$key = hash('whirlpool', $new);
 	}
 	else{
 		$part1 = $enc_key.substr($password, 0, $length / 2);
 		$part2 = $enc_key3.substr($password, $length / 2);
 		$new = $part2.$enc_key2.$part1;
+		$key = hash('whirlpool', $new);
 	}
-	return $new;
+	return $key;
 }
 
-function verify_email($email){
+function verify_email($email, $subject, $message){
 	$verification_link = md5(getRandomWord(strlen($email)));
 	$receiver = $email;
 	$subject = 'Camagru Email Verification';
-	$message = 'Copy the following link into your url.'.'localhost:8080/camagru/verification.php?verify='.$verification_link.'   KrissAdmin Camagru.';
+	$message .= $verification_link.'   KrissAdmin Camagru.';
 	$header = 'From: no-reply@krissadmin.camagru';
 	mail($receiver, $subject, $message);
 }

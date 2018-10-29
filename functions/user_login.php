@@ -31,7 +31,7 @@ if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['use
 		// echo strlen($row['password']);
 		// echo $username."<br/>".$password."<br/>";
 		// echo password_verify($password, $row['password']);
-		if (strtolower($row['username']) === strtolower($username) && !password_verify($password, trim($row['password']))){
+		if (strtolower($row['username']) === strtolower($username) && $password === $row['password']){
 			if ($row['verified']){
 				session_start();
 				$_SESSION['logged'] = "user";

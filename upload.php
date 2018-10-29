@@ -12,7 +12,8 @@ if ($_SESSION['logged'] && ($_SESSION['logged'] === "user" || $_SESSION['logged'
         $file_size = $_FILES['image']['size'];
         $file_tmp = $_FILES['image']['tmp_name'];
         $file_type = $_FILES['image']['type'];
-        $file_ext = strtolower(end(explode('.',$_FILES['image']['name'])));
+        $ext_arr = explode('.',$_FILES['image']['name']);
+        $file_ext = strtolower(end($ext_arr));
 
         $enc = "d7cz5j7";
         $ext = array("jpeg","jpg","png");

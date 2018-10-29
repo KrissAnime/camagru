@@ -15,7 +15,7 @@ else{
 ?>
 
 <div>
-            <div class='camera'>
+        <div class='camera'>
                 <video id='video' autoplay></video>
             </div>
         <div>
@@ -26,6 +26,8 @@ else{
             <input type="file" name="image" />
             <input type="submit"/>
         </form>
+        <canvas class="output">
+        </canvas>
     <script src='js/camera.js'></script>
 
 <?php
