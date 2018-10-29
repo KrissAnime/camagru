@@ -21,7 +21,9 @@ if (isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['l
 	else if (is_new_user($data['username'], $data['email'], $con)){
 		if (filter_var($data['email'], FILTER_VALIDATE_EMAIL) === $data['email']){
 			add_user($data, $con);
-			verify_email($data['email']);
+			$subject = 'Camagru Email Verification';
+			$message = 'Copy the following link into your url.'.'localhost:8080/camagru/verification.php?verify=';
+			verify_email($data['email'], $subject, $message);
 			session_start();
 			$_SESSION['logged'] = "new_user";
 			header('Location: ../verification.php?verify=new_user');

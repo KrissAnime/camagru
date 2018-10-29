@@ -1,9 +1,8 @@
 body {
-	background-image: url('https://i.imgur.com/PZo3aPN.jpg');
+	background-image: url('../extra/background.jpg');
 	background-repeat: no-repeat;
 	/* width: 100%; */
 	min-height: 100%;
-
 }
 
 .central_grid {

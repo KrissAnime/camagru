@@ -3,6 +3,11 @@
 }
 
 .profile_details {
-    color: white;
+    color: black;
     font-size: 18px;
+}
+
+body {
+    margin-right: 25%;
+    background-image: url('../extra/background.jpg');
 }
