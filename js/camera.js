@@ -13,9 +13,10 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var video = document.getElementById('video');
+var capture = document.getElementById('capture');
 
 capture.addEventListener("click", function(){
     var video = document.getElementById('video');
     console.log(video);
-    context.drawImage(video, 0, 0, 300, 300);
+    context.drawImage(video, 0, 0, 500, 500);
 });

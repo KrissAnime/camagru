@@ -17,13 +17,19 @@ foreach($val as $row){
 	$src = "images/".$row['img_name'];
 	// echo $src;
 	if (file_exists($src)){
-		echo "<div class='central_grid_item' style=\"background-image:url('$src')\"></div>";
+		echo "<div  id='myModal' class='modal'>
+				<span class='close'>&times;</span>
+				<div id='myImg' class='central_grid_item' style=\"background-image:url('$src')\"></div>
+			</div>";
 	}
 }
 echo "</div";
+?>
+
+
+
+<?php
 
 require('footer.php');
 
 ?>
-
-

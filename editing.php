@@ -16,12 +16,20 @@ else{
 
 <div>
         <div class='camera'>
-                <video id='video' autoplay></video>
-            </div>
-        <div>
-            <button type='button' id='capture'>Capture Photo</button>
-            </div>
+                <video id='video' width="640" height="480" autoplay></video><br/>
+                <button type='button' id='capture'>Capture Photo</button>
         </div>
+        <div class='stickers_borders' right="20px">
+            <?php
+                $sql = "SELECT * FROM `camagru`.`stickers`";
+
+
+            ?>
+        </div>
+        <canvas id="canvas" width="640" height="480">
+            <div id="overlay"></div>
+        </canvas>
+</div>
         <form action="functions/camera.php" method="POST" enctype="multipart/form-data">
             <input type="file" name="image" />
             <input type="submit"/>
