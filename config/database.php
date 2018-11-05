@@ -2,7 +2,7 @@
 
 $admin_name = 'root';
 $admin_server = 'localhost';
-$admin_password = '';
+$admin_password = 'Asuka2016';
 $admin_db = 'camagru';
 
 ?>

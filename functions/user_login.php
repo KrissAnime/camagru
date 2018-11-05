@@ -7,9 +7,6 @@ if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['use
 	$username = $_POST['username'];
 	$password = encryption($_POST['password']);
 
-	// $con = new PDO("mysql:host=".$admin_server, $admin_name, $admin_password);
-	// $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 	$sql = $con->prepare("SELECT `username`, `password`, `verified`, `user_id` FROM `camagru`.`users`");
 	// $sql->bindParam(':username', $username);
 	// $sql->bindParam(':password', $password);
@@ -24,10 +21,10 @@ if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['use
 	// print_r($val);
 	// echo "</pre>";
 	foreach($val as $row){
-		echo "<pre>";
-		print_r($row);
-		echo "</pre>";
-		echo "<br/>".$username."<br/>".$password."<br/>";
+		// echo "<pre>";
+		// print_r($row);
+		// echo "</pre>";
+		// echo "<br/>".$username."<br/>".$password."<br/>";
 		// echo strlen($row['password']);
 		// echo $username."<br/>".$password."<br/>";
 		// echo password_verify($password, $row['password']);
