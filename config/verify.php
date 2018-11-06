@@ -18,6 +18,19 @@ function add_user($data, $con){
 	$sql->execute();
 }
 
+function is_new_user2($email, $con) {
+    $sql = $con->prepare("SELECT `email` FROM `camagru`.`users`");
+	$sql->execute();
+	$sql->setFetchMode(PDO::FETCH_ASSOC);
+	$val = $sql->fetchAll();
+	foreach($val as $row){
+		if ($row['email'] === $email){
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 function is_new_user($username, $email, $con) {
     $sql = $con->prepare("SELECT `username`, `email` FROM `camagru`.`users`");
 	$sql->execute();
@@ -69,9 +82,51 @@ function verify_email($email, $subject, $message){
 	$verification_link = md5(getRandomWord(strlen($email)));
 	$receiver = $email;
 	$subject = 'Camagru Email Verification';
-	$message .= $verification_link.'   KrissAdmin Camagru.';
+	$message .= $verification_link.'
+	
+	KrissAdmin Camagru.';
 	$header = 'From: no-reply@krissadmin.camagru';
 	mail($receiver, $subject, $message);
+
+	$admin_name = 'root';
+	$admin_server = 'localhost';
+	$admin_password = 'Asuka2016';
+	$admin_db = 'camagru';
+
+	$con = new PDO("mysql:host=".$admin_server, $admin_name, $admin_password);
+	$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+	$stmt = $con->prepare("SELECT `user_id` FROM `camagru`.`users` WHERE `email` = :email");
+	$stmt->bindParam(":email", $email);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $val = $stmt->fetchAll();
+	
+	// if (isset($_SESSION['current'])){
+	// 	$id = $_SESSION['current'];
+	// }
+	// foreach ($val as $row){
+	// 	$id = $row['user_id'];
+	// }
+
+	$stmt = $con->prepare("SELECT `email` FROM `camagru`.`verification` WHERE `email` = :email");
+	$stmt->bindParam(":email", $email);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$val = $stmt->fetchAll();
+	
+	$check = 1;
+	foreach ($val as $row){
+		$check = 0;
+	}
+	if ($check){
+		$sql = $con->prepare("INSERT INTO `camagru`.`verification`
+		(`email`, `link`)
+		VALUES (:email, :verification_link)");
+		$sql->bindParam(':email', $email);
+		$sql->bindParam(':verification_link', $verification_link);
+		$sql->execute();
+	}
 }
 
 function new_link($email, $con){

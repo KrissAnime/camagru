@@ -18,6 +18,7 @@
 			<h3>Password:</h3> <input type="password" size="30" id="password" name="password"><br/><br/>
 			<button type="submit" id="login">Login</button>
 			<a href="registration.php">New Account? Register Here!</a>
+			<a href="forgot_password.php">Forgot Password?</a>
 		</form>
 	</div>
 	<div id="error">

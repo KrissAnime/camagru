@@ -17,7 +17,9 @@ $sql = $con->prepare(
 		$src = "images/".$row['img_name'];
 		// echo $src;
 		if (file_exists($src)){
-			echo "<div onclick='blowup(event);' class='central_grid_item' style=\"background-image:url('$src')\"></div>";
+			echo	"<div onclick='blowup(event);' class='central_grid_item' style=\"background-image:url('$src')\">
+						<i onclick='like_event(event);' id='heart' class='fas fa-heart'></i>
+					</div>";
 		}
 	}
 	echo "</div>";
@@ -49,6 +51,17 @@ $sql = $con->prepare(
 	var captionText = document.getElementById("caption");
 	var modal = document.getElementById('myModal');
 	
+	function like_event(event){
+		var heart = document.getElementById('heart');
+
+		if (heart.classList.contains('fas fa-heart')){
+			heart.classList.toggle('far fa-heart');
+		}
+		else{
+			heart.classList.toggle('fas fa-heart');
+		}
+	}
+
 	function blowup(event){
 		img = event.target.style.backgroundImage.slice(12, -2);
 		modal.style.display = "block";

@@ -46,7 +46,7 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
             $pic = $pic_org;
         }
         if (!empty($_GET)){
-            if ($_GET['edit'] === "true"){
+            if ($_GET['edit'] === "true" || $_GET['update'] === "true"){
                 echo "<div class='central_grid' l3 s2 style='margin-right:300px'>";
         
                 foreach($val as $row){
@@ -80,6 +80,7 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
                                             <h4>Username:</h4> <input type='text' size='30' id='username' name='username'><br/>
                                             <h4>Password:</h4> <input type='password' minlength=6 size='30' id='password' name='password'><br/>
                                             <br/><button type='submit' id='save_details'>Save Details</button>
+                                            <a href='profile.php' class='upload'>Cancel</a>
                                             <br/><a href='profile.php>Cancel</button></a>
                                         </form>
                                     </div>
@@ -96,19 +97,20 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
             <a href='upload_profile.php' class='upload'>Upload</a>
             </div>
             <div style='margin-right:20%' style='min-height: 100%;'></div>";
-            echo    "   <table class='w3-stripped'>
+            echo    "<table class='profile_details'> 
             <tr>
-            <th>'".$row['username']."'</th>
+            <th>User: </th>
+            <th>$username</th>
             </tr>
             <tr>
-            <th>'".$row['email']."'</th>
+            <th>Email: </th>
+            <th>$email</th>
             </tr>
             </table>
             <br/><a href='profile.php?edit=true 'button type='submit' id='login'>Edit Details</button></a></div>";
             echo "<div class='central_grid' l3 s2 style='margin-right:300px'>";
         
             foreach($val as $row){
-                // echo $src;
                 if ($row['user_id'] === $user){
                     $src = "images/".$row['img_name'];
                     if (file_exists($src)){

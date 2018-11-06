@@ -28,8 +28,7 @@ try {
 	$con->exec($sql);
 
 	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`verification` (
-		`user_id` INT(6) NOT NULL PRIMARY KEY,
-		`email` VARCHAR(50) NOT NULL ,
+		`email` VARCHAR(50) NOT NULL PRIMARY KEY,
 		`link` VARCHAR(50) NOT NULL )
 		ENGINE = InnoDB;";
 
