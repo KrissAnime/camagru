@@ -102,13 +102,6 @@ function verify_email($email, $subject, $message){
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $val = $stmt->fetchAll();
 	
-	// if (isset($_SESSION['current'])){
-	// 	$id = $_SESSION['current'];
-	// }
-	// foreach ($val as $row){
-	// 	$id = $row['user_id'];
-	// }
-
 	$stmt = $con->prepare("SELECT `email` FROM `camagru`.`verification` WHERE `email` = :email");
 	$stmt->bindParam(":email", $email);
     $stmt->execute();

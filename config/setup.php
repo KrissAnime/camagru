@@ -37,11 +37,19 @@ try {
 	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`images` (
 			`user_id` INT(6) NOT NULL ,
 			`img_name` VARCHAR(40) NOT NULL PRIMARY KEY,
-			`img_enc` VARCHAR(300),
 			`edited` INT(1) DEFAULT 0,
 			`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
 	$con->exec($sql);
+
+	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`likes` (
+		`image_id` INT(6) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+		`user_id` INT(6) NOT NULL ,
+		`img_name` VARCHAR(40) NOT NULL,
+		`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
+	$con->exec($sql);
+
 	$enc = "d7cz5j7";
 
 	if (!file_exists('../images/')){
@@ -94,9 +102,39 @@ try {
 	}
 
 	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`stickers` (
-		`img_name` VARCHAR(40) NOT NULL PRIMARY KEY)";
+		`img_name` VARCHAR(1000) NOT NULL PRIMARY KEY)";
 
 	$con->exec($sql);
+
+	$stickers = array('zergling_by_ashidaru-d85eifj.png',
+	'kisspng-drawing-clip-art-border-designs-cliparts-5a886d11bf10e3.6414439015188902577826.jpg',
+	'kisspng-carbotanimations-wikia-heroes-of-the-storm-clip-ar-carbot-5b467d2de3a775.1946234415313462219325.png',
+	'kisspng-clip-art-sticker-telegram-line-cartoon-telegram-sticker-002-from-collection-carbot-anima-5b63af1f1bc044.6695194315332595511137.png',
+	'kisspng-starcraft-animation-zerg-art-hydra-5aec479540b758.2335594915254342612651.png'
+	);
+
+	$total = sizeof($stickers);
+	for ($y = 0; $y < $total; $y++){
+		$sql = $con->prepare("SELECT * FROM `camagru`.`stickers`");
+		$sql->execute();
+		$sql->setFetchMode(PDO::FETCH_ASSOC);
+		$val = $sql->fetchAll();
+		$clear = 1;
+		$file = $stickers[$y];
+		if (file_exists('../stickers_borders/'.$stickers[$y])){
+			foreach($val as $row){
+				if ($row['img_name'] == $file){
+					$clear = 0;
+					break ;
+				}
+			}
+			if ($clear){
+				$sql = "INSERT INTO `camagru`.`stickers` (`img_name`)
+					VALUES ('".$file."')";
+				$con->exec($sql);
+			}
+		}
+	}
 	
 	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`comments` (
 		`user_id` INT(6) NOT NULL ,

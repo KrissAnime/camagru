@@ -15,17 +15,31 @@ else{
 ?>
 
 <div>
-        <div class='camera'>
-                <video id='video' width="640" height="480" autoplay></video><br/>
+        <div id='camera'>
+                <video id='video' width="500" height="300" autoplay></video><br/>
                 <button type='button' id='capture'>Capture Photo</button>
         </div>
-        <div class='stickers_borders' right="20px">
-            <?php
-                $sql = "SELECT * FROM `camagru`.`stickers`";
-
-
-            ?>
+        <div id='drawn_sticker'>
         </div>
+            <?php
+                $sql = $con->prepare("SELECT * FROM `camagru`.`stickers`");
+                $sql->execute();
+                $sql->setFetchMode(PDO::FETCH_ASSOC);
+                $val = $sql->fetchAll();
+
+                echo    "<div class='central_grid' l3 s2>";
+                foreach ($val as $row){
+                    $src = "stickers_borders/".$row['img_name'];
+                
+                    if (file_exists($src)){
+                        // <div onclick='blowup(event);' style=\"width: 80%\">
+                        //             </div>
+                        echo	"<div onclick='sticker(event);' class='central_grid_item' style=\"background-image:url('$src')\">
+					            </div>";
+                    }
+                }
+                echo    "</div>";
+            ?>
         <canvas id="canvas" width="640" height="480">
             <div id="overlay"></div>
         </canvas>
@@ -36,7 +50,12 @@ else{
         </form>
         <canvas class="output">
         </canvas>
-    <script src='js/camera.js'></script>
+    <script src='js/camera.js'>
+        // function sticker(event){
+        //     var sticker = document.getElementById('drawn_sticker');
+        //     context.drawImage(sticker, 0, 0, 500, 500);
+        // }
+    </script>
 
 <?php
 

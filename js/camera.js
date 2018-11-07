@@ -5,7 +5,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     .then(
         function(stream) {
             video.src = window.URL.createObjectURL(stream);
-            video.play();
+            // video.play();
         }
         );
 }
@@ -15,8 +15,14 @@ var context = canvas.getContext('2d');
 var video = document.getElementById('video');
 var capture = document.getElementById('capture');
 
+
+
 capture.addEventListener("click", function(){
+    var sticker = document.getElementById('drawn_sticker');
     var video = document.getElementById('video');
     console.log(video);
     context.drawImage(video, 0, 0, 500, 500);
-});
+    context.drawImage(sticker, 0, 0, 500, 500);
+}
+);
+

@@ -1,0 +1,16 @@
+#camera {
+    position: absolute;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.stickers_borders {
+    width: 30%;
+    height: 30%;
+}
+
+#drawn_sticker {
+    position: absolute;
+    margin-left: 5%;
+    margin-top: 5%;
+}

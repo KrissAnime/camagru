@@ -11,6 +11,10 @@ body {
     height: 200px;
 } */
 
+#heart {
+    color: white;
+}
+
 #user_comment{
     margin-left: 10%;
     width: 80%;
