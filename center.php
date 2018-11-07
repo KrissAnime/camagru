@@ -86,7 +86,7 @@ $sql = $con->prepare(
 					$output .= "<h6>".$user_id."   ".$date."</h6><br/>";
 					$output .= $comment."<br/>";
 					$output .= "</div>";
-					echo $output;
+					// echo $output;
 				}
 			?>
 				</div>
