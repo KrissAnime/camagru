@@ -52,13 +52,13 @@ $sql = $con->prepare(
 			echo	"<div class='central_grid_item' style=\"background-image:url('$src')\">";
 			if ($num2){
 				echo	"<i onclick='like_event(event, \"$name\");' id='heart' class='fas fa-heart' style=\"color: white\">$num</i>			
-								<div onclick='blowup(event, \"$name\");' style=\"height: 60%\">
+								<div onclick='blowup(event, \"$name\");' style=\"height: 70%\">
 							</div>
 						</div>";
 			}
 			else{
 				echo	"<i onclick='like_event(event, \"$name\");' id='heart' class='far fa-heart' style=\"color: white\">$num</i>			
-								<div onclick='blowup(event, \"$name\");' style=\"width: 60%\">
+								<div onclick='blowup(event, \"$name\");' style=\"width: 70%\">
 							</div>
 						</div>";
 			}
@@ -74,18 +74,28 @@ $sql = $con->prepare(
 			<div id="modal_image">
 			</div>
 			<br/>
-			<div id="comment_list">
+				<div id="comment_list">
 			<?php
-				// $sql = "SELECT * FROM `camagru`.`comments`"
-			
+				$sql = $con->prepare("SELECT * FROM `camagru`.`comments`");
+				$sql->execute();
+				while ($row = $sql->fetch()){
+					$user_id = $row['user_id'];
+					$comment = $row['comment'];
+					$date = $row['date'];
+					$output = "<div class='w3-container'>";
+					$output .= "<h6>".$user_id."   ".$date."</h6><br/>";
+					$output .= $comment."<br/>";
+					$output .= "</div>";
+					echo $output;
+				}
 			?>
-			</div>
-			<br/>
-			<form action="" method="POST" id="input_comment" name="input_comment">
-				<input type="hidden" name="modal_img_name" value=""/>
-				<textarea id="user_comment" name="user_comment"></textarea>
-				<br/><button type="submit" id="sub_comment"></button>
-			</form>
+				</div>
+				<br/>
+				<form action="" method="POST" id="input_comment" name="input_comment">
+					<input type="hidden" id ="modal_img_name" name="modal_img_name" value=""/>
+					<textarea id="user_comment" name="user_comment"></textarea>
+					<br/><button type="submit" id="sub_comment"></button>
+				</form>
 		</div>
 		<div id='caption'>
 		</div>
@@ -109,7 +119,7 @@ $sql = $con->prepare(
 		else{
 			var like = 'no';
 		}
-		
+
 		xhttp.open("POST", "functions/likes.php", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
@@ -121,25 +131,25 @@ $sql = $con->prepare(
 					if (heart.classList.contains('fas', 'fa-heart')){
 						heart.classList.remove('fas', 'fa-heart');
 						heart.classList.add('far', 'fa-heart');
+						location.reload();
 					}
 					else{
 						heart.classList.remove('far', 'fa-heart');
 						heart.classList.add('fas', 'fa-heart');
+						location.reload();
 					}
 				}
 			}
   		};
   		xhttp.send("like="+like+"&source="+source);
 		
-		location.reload();
-		// echo "<meta http-equiv='refresh' content='0;URL='index.php'>";
-		// console.log(source);
-		// console.log(heart.classList);
 		
 	}
 
 	function blowup(event, img){
 		// img = event.target.style.backgroundImage.slice(12, -2);
+		var modal_img = document.getElementById('modal_img_name');
+		modal_img.value = img;
 		modal.style.display = "block";
 		modalImg.style.backgroundImage = 'url(images/' + img +')';
 	}
@@ -154,24 +164,24 @@ $sql = $con->prepare(
 	</script>
 
 <?php
-	if (isset($_POST['user_comment']) && !empty($_POST['user_comment'])){
-		if (isset($_SESSION)){
-			if (isset($_SESSION['current'])){
-				if ($_SESSION['logged'] && $_SESSION['logged'] === "user" || $_SESSION['logged'] === "admin"){
-					if (strlen($_POST['user_comment']) <= 120){
-						$comment = $_POST['user_comment'];
-						$user_id = $_SESSION['current'];
+	if (isset($_POST['user_comment']) && !empty($_POST['user_comment']) && isset($_POST['modal_img_name']) && !empty($_POST['modal_img_name'])){
+		if (!isset($_SESSION)){
+			session_start();
+		}
+		if (isset($_SESSION['current'])){
+			if (isset($_SESSION['logged']) && $_SESSION['logged'] && $_SESSION['logged'] === "user" || $_SESSION['logged'] === "admin"){
+				if (strlen($_POST['user_comment']) <= 120){
+					$comment = $_POST['user_comment'];
+					$user_id = $_SESSION['current'];
+					$img_id = $_POST['modal_img_name'];
 
-
-						$stmt = $con->prepare("INSERT INTO `camagru`.`comments` (user_id, img_id, comment) 
-						VALUES (:user_id, :img_id, :comment)");
-						$stmt->bindParam(':user_id', $user_id);
-						$stmt->bindParam(':img_id', $img_id);
-						$stmt->bindParam(':comment', $comment);
-					}
-				}
-				else{
-					header('Location: login.php');
+					$stmt = $con->prepare("INSERT INTO `camagru`.`comments` (user_id, img_name, comment) 
+					VALUES (:user_id, :img_name, :comment)");
+					$stmt->bindParam(':user_id', $user_id);
+					$stmt->bindParam(':img_name', $img_id);
+					$stmt->bindParam(':comment', $comment);
+					$stmt->execute();
+					// header('Location: index.php');
 				}
 			}
 		}
@@ -180,6 +190,6 @@ $sql = $con->prepare(
 		}
 	}
 	else{
-		header('Location: index.php');
+		// header('Location: index.php');
 	}
 ?>
