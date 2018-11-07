@@ -41,7 +41,7 @@ body {
     width: 95%;
     margin: auto;
     height: 100px;
-    background-color: lightcyan;
+    /* background-color: lightcyan; */
 }
 
 .central_grid {
