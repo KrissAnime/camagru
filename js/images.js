@@ -8,7 +8,7 @@ var modalImg = document.getElementById("modal_image");
 		var img_name = modal_img.value;
 		var xhttp = new XMLHttpRequest();
 		
-		xhttp.open("POST", "functions/submit_comment.php", true);
+		xhttp.open("POST", "../functions/submit_comment.php", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -42,7 +42,7 @@ var modalImg = document.getElementById("modal_image");
 			var like = 'no';
 		}
 
-		xhttp.open("POST", "functions/likes.php", true);
+		xhttp.open("POST", "../functions/likes.php", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -71,7 +71,7 @@ var modalImg = document.getElementById("modal_image");
 		var xhttp = new XMLHttpRequest();
 		
 
-		xhttp.open("POST", "functions/comments.php", true);
+		xhttp.open("POST", "../functions/comments.php", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		
 		xhttp.onreadystatechange = function() {
