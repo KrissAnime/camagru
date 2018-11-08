@@ -28,7 +28,7 @@ body {
 
 #image_box {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     padding: 10px;
     margin: auto;
     /* align-content: center; */
@@ -50,16 +50,14 @@ body {
     border: solid white 2px;
     width: 95%;
     background-color: grey;
-    height: 10%;
     margin: auto;
-    height: 100px;
     /* background-color: lightcyan; */
 }
 
 #comment_name {
     width: 100%;
     background-color: lightgray;
-    height: 30%;
+    height: 20%;
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 20px;
 }
@@ -102,11 +100,12 @@ body {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 30px; /* Location of the box */
+    /* padding-top: 30px; */
     left: 10px;
     right: 10px;
-    bottom: 10px;
-    top: 15px;
+    margin-top: 10px;
+    /* bottom: 10px; */
+    /* top: 15px; */
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
@@ -129,7 +128,7 @@ body {
     position: relative;
     /* top: 20px;
     right: 50px; */
-    color: #f1f1f1;
+    color: white;
     font-size: 40px;
     font-weight: bold;
     transition: 0.3s;
@@ -141,3 +140,38 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
+.delete {
+    position: relative;
+    /* top: 20px;
+    right: 50px; */
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.delete:hover,
+.delete:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Pagination links */
+.pagination a {
+    color: white;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+/* Style the active/current link */
+.pagination a.active {
+    background-color: red;
+    color: white;
+}
+
+/* Add a grey background color on mouse-over */
+.pagination a:hover:not(.active) {background-color: orange;}

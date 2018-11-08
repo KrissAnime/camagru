@@ -137,8 +137,9 @@ try {
 	}
 	
 	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`comments` (
+		`comment_id` INT (6) AUTO_INCREMENT PRIMARY KEY ,
 		`user_id` INT(6) NOT NULL ,
-		`img_name` VARCHAR(40) NOT NULL PRIMARY KEY,
+		`img_name` VARCHAR(40) NOT NULL,
 		`comment` VARCHAR (400) NOT NULL ,
 		`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 	$con->exec($sql);

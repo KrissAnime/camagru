@@ -52,10 +52,13 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
                 foreach($val as $row){
                     // echo $src;
                     if ($row['user_id'] === $user){
-                        $src = "images/".$row['img_name'];
+                        $name = $row['img_name'];
+                        $src = "images/".$name;
                         if (file_exists($src)){
+                            
+
                             echo "<div class='central_grid_item' style=\"background-image:url('$src')\">
-                                <span class='delete' onclick='delete_image(event);' >&times;</span>
+                                <span class='delete' onclick='delete_image(\"$name\");' style='float: right'>&times;</span>
                             </div>";
                         }
                     }
@@ -116,7 +119,49 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
                 if ($row['user_id'] === $user){
                     $src = "images/".$row['img_name'];
                     if (file_exists($src)){
-                        echo "<div class='central_grid_item' style=\"background-image:url('$src')\"></div>";
+                        $num = 0;
+                            $sql = $con->prepare("SELECT COUNT(*) as total
+                                    FROM `camagru`.`likes`
+                                    WHERE `img_name` = :name");
+                            $sql->bindParam(':name', $name);
+                            $sql->execute();
+                            $sql->setFetchMode(PDO::FETCH_ASSOC);
+                            $val = $sql->fetchAll();
+                            $num = $val[0]['total'];
+                
+                            $img_name = $name;
+                            $num2 = 0;
+                            if (isset($_SESSION)){
+                                if (isset($_SESSION['current'])){
+                                    $user_id = $_SESSION['current'];
+                                    $sql = $con->prepare("SELECT COUNT(*) as other
+                                    FROM `camagru`.`likes`
+                                    WHERE `user_id` = :user_id
+                                    AND `img_name` = :img_name");
+                            
+                                    $sql->bindParam(':user_id', $user_id);
+                                    $sql->bindParam(':img_name', $img_name);
+                                    $sql->execute();
+                                    $sql->setFetchMode(PDO::FETCH_ASSOC);
+                                    $val = $sql->fetchAll();
+                                    $num2 = $val[0]['other'];
+                                }
+                            }
+                            
+                            // echo    $num2;
+                            echo	"<div class='central_grid_item' style=\"background-image:url('$src')\">";
+                            if ($num2){
+                                echo	"<i onclick='like_event(event, \"$name\");' id='heart' class='fas fa-heart' style=\"color: white\">$num</i>			
+                                                <div style=\"height: 100%; width: 100%\">
+                                            </div>
+                                        </div>";
+                            }
+                            else{
+                                echo	"<i onclick='like_event(event, \"$name\");' id='heart' class='far fa-heart' style=\"color: white\">$num</i>			
+                                                <div style=\"height: 100%; width: 100%\">
+                                            </div>
+                                        </div>";
+                            }
                     }
                 }
                 
@@ -124,6 +169,8 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
             echo "</div>";
         }
     }
-        require('footer.php');
-        ?>
+    echo "<script src='js/images.js'></script>";
+    require('footer.php');
+?>
+
         
