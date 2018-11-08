@@ -54,7 +54,9 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
                     if ($row['user_id'] === $user){
                         $src = "images/".$row['img_name'];
                         if (file_exists($src)){
-                            echo "<div class='central_grid_item' style=\"background-image:url('$src')\"></div>";
+                            echo "<div class='central_grid_item' style=\"background-image:url('$src')\">
+                                <span class='delete' onclick='delete_image(event);' >&times;</span>
+                            </div>";
                         }
                     }
                     

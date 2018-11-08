@@ -139,7 +139,7 @@ try {
 	$sql = "CREATE TABLE IF NOT EXISTS `camagru`.`comments` (
 		`user_id` INT(6) NOT NULL ,
 		`img_name` VARCHAR(40) NOT NULL PRIMARY KEY,
-		`comment` VARCHAR (120) NOT NULL ,
+		`comment` VARCHAR (400) NOT NULL ,
 		`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 	$con->exec($sql);
 	$sql = $con->prepare("SELECT `camagru`.`users`.`username` FROM `camagru`.`users`");

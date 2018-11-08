@@ -52,13 +52,13 @@ $sql = $con->prepare(
 			echo	"<div class='central_grid_item' style=\"background-image:url('$src')\">";
 			if ($num2){
 				echo	"<i onclick='like_event(event, \"$name\");' id='heart' class='fas fa-heart' style=\"color: white\">$num</i>			
-								<div onclick='blowup(event, \"$name\");' style=\"height: 70%\">
+								<div onclick='blowup(event, \"$name\");' style=\"height: 100%; width: 100%\">
 							</div>
 						</div>";
 			}
 			else{
 				echo	"<i onclick='like_event(event, \"$name\");' id='heart' class='far fa-heart' style=\"color: white\">$num</i>			
-								<div onclick='blowup(event, \"$name\");' style=\"width: 70%\">
+								<div onclick='blowup(event, \"$name\");' style=\"height: 100%; width: 100%\">
 							</div>
 						</div>";
 			}
@@ -67,38 +67,24 @@ $sql = $con->prepare(
 	}
 	echo "</div>";
 	?>
-	<div id='myModal' class='modal'>
-		<br/>
-		<span class='close'>&times;</span>
-		<div id="image_box">
-			<div id="modal_image">
-			</div>
+			<div id='myModal' class='modal'>
 			<br/>
-				<div id="comment_list">
-			<?php
-				$sql = $con->prepare("SELECT * FROM `camagru`.`comments`");
-				$sql->execute();
-				while ($row = $sql->fetch()){
-					$user_id = $row['user_id'];
-					$comment = $row['comment'];
-					$date = $row['date'];
-					$output = "<div class='w3-container'>";
-					$output .= "<h6>".$user_id."   ".$date."</h6><br/>";
-					$output .= $comment."<br/>";
-					$output .= "</div>";
-					// echo $output;
-				}
-			?>
+			<span class='close'>&times;</span>
+				<div id='image_box'>
+					<div id='modal_image'>
+						</div>
+				<br/>
+				<div id="my_comments">
 				</div>
 				<br/>
-				<form action="" method="POST" id="input_comment" name="input_comment">
+				<form action="" method="POST" id="input_comment" name="input_comment" onclick="submit_comment()">
 					<input type="hidden" id ="modal_img_name" name="modal_img_name" value=""/>
 					<textarea id="user_comment" name="user_comment"></textarea>
-					<br/><button type="submit" id="sub_comment"></button>
+					<br/><button type="submit" class='w3-button w3-white' id="sub_comment">Comment</button>
 				</form>
-		</div>
+			</div>
 		<div id='caption'>
-		</div>
+			</div>
 	</div>
 	<script>
 	// Get the modal
@@ -109,6 +95,23 @@ $sql = $con->prepare(
 	var captionText = document.getElementById("caption");
 	var modal = document.getElementById('myModal');
 	
+	function submit_comment() {
+		var user_comment = document.getElementById('user_comment');
+		var heart = event.target;
+		var xhttp = new XMLHttpRequest();
+
+		xhttp.open("POST", "functions/submit_comment.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				if (this.responseText === "fail"){
+					window.alert("You Need To Login First");
+				}
+			}
+  		};
+  		xhttp.send("user_comment="+user_comment);
+	}
+
 	function like_event(event, source){
 		var heart = event.target;
 		var xhttp = new XMLHttpRequest();
@@ -142,16 +145,31 @@ $sql = $con->prepare(
 			}
   		};
   		xhttp.send("like="+like+"&source="+source);
-		
-		
 	}
 
 	function blowup(event, img){
-		// img = event.target.style.backgroundImage.slice(12, -2);
+		var heart = event.target;
+		var xhttp = new XMLHttpRequest();
+		
+
+		xhttp.open("POST", "functions/comments.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var comments = document.getElementById('my_comments');
+				if (this.responseText !== "fail"){
+					comments.innerHTML = this.responseText;
+				}
+			}
+		}
+
 		var modal_img = document.getElementById('modal_img_name');
 		modal_img.value = img;
 		modal.style.display = "block";
 		modalImg.style.backgroundImage = 'url(images/' + img +')';
+
+		xhttp.send("img_name="+img);
 	}
 	
 	// Get the <span> element that closes the modal
@@ -162,34 +180,3 @@ $sql = $con->prepare(
 		modal.style.display = "none";
 	}
 	</script>
-
-<?php
-	if (isset($_POST['user_comment']) && !empty($_POST['user_comment']) && isset($_POST['modal_img_name']) && !empty($_POST['modal_img_name'])){
-		if (!isset($_SESSION)){
-			session_start();
-		}
-		if (isset($_SESSION['current'])){
-			if (isset($_SESSION['logged']) && $_SESSION['logged'] && $_SESSION['logged'] === "user" || $_SESSION['logged'] === "admin"){
-				if (strlen($_POST['user_comment']) <= 120){
-					$comment = $_POST['user_comment'];
-					$user_id = $_SESSION['current'];
-					$img_id = $_POST['modal_img_name'];
-
-					$stmt = $con->prepare("INSERT INTO `camagru`.`comments` (user_id, img_name, comment) 
-					VALUES (:user_id, :img_name, :comment)");
-					$stmt->bindParam(':user_id', $user_id);
-					$stmt->bindParam(':img_name', $img_id);
-					$stmt->bindParam(':comment', $comment);
-					$stmt->execute();
-					// header('Location: index.php');
-				}
-			}
-		}
-		else{
-			header('Location: login.php');
-		}
-	}
-	else{
-		// header('Location: index.php');
-	}
-?>
