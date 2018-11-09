@@ -16,45 +16,70 @@ else{
 
 <div>
         <div id='camera'>
+                <div id="upload_image" style="position: absolute; background-size: cover; margin: auto; width:500px; height:300px"></div>
+                <div id="overlay" style="position: absolute; background-size: cover; margin: auto; width:500px; height:300px"></div>
                 <video id='video' width="500" height="300" autoplay></video><br/>
-                <button type='button' id='capture'>Capture Photo</button>
+                <button type='button' id='capture'  disabled>Capture Photo</button>
+                <form action="functions/camera.php" method="POST" enctype="multipart/form-data" "">
+                    <input type="hidden" name="sticker_2" id="sticker_2" value=""/>
+                    <input type="hidden" name="main_image" id="main_image" value=""/>
+                    <input type="submit" name="submit" id="submit_image"disabled/>
+                </form>
         </div>
-        <div id='drawn_sticker'>
-        </div>
+        <canvas id="canvas" width="500" height="300">
+            
+        </canvas>
+</div>
+
             <?php
                 $sql = $con->prepare("SELECT * FROM `camagru`.`stickers`");
                 $sql->execute();
                 $sql->setFetchMode(PDO::FETCH_ASSOC);
                 $val = $sql->fetchAll();
 
-                echo    "<div class='central_grid' l3 s2>";
+                echo    "<div class='central_grid_mini' > ";
                 foreach ($val as $row){
                     $src = "stickers_borders/".$row['img_name'];
+                    $name = $row['img_name'];
                 
                     if (file_exists($src)){
                         // <div onclick='blowup(event);' style=\"width: 80%\">
                         //             </div>
-                        echo	"<div onclick='sticker(event);' class='central_grid_item' style=\"background-image:url('$src')\">
+                        echo	"<div onclick='sticker(event);' class='central_grid_item_mini' style=\"background-image:url('$src')\">
 					            </div>";
                     }
                 }
                 echo    "</div>";
+                $user = $_SESSION['current'];
+
+                $sql = $con->prepare(
+                    "SELECT `img_name`, `user_id`
+                    FROM `camagru`.`images`
+                    ORDER BY
+                    `images`.`date` DESC");
+                    $sql->execute();
+                    $sql->setFetchMode(PDO::FETCH_ASSOC);
+                    $val = $sql->fetchAll();
+                
+                echo    "<div class='central_grid_mini'>";
+                foreach ($val as $row){
+                    if ($row['user_id'] === $user){
+                        $src = "images/".$row['img_name'];
+                        $name = $row['img_name'];
+                    
+                        if (file_exists($src)){
+                            // <div onclick='blowup(event);' style=\"width: 80%\">
+                            //             </div>
+                            echo	"<div onclick='background_image(event);' class='central_grid_item_mini' style=\"background-image:url('$src')\">
+                                    </div>";
+                        }
+                    }
+                }
+                echo    "</div>";
             ?>
-        <canvas id="canvas" width="640" height="480">
-            <div id="overlay"></div>
-        </canvas>
-</div>
-        <form action="functions/camera.php" method="POST" enctype="multipart/form-data">
-            <input type="file" name="image" />
-            <input type="submit"/>
-        </form>
-        <canvas class="output">
-        </canvas>
+        
     <script src='js/camera.js'>
-        // function sticker(event){
-        //     var sticker = document.getElementById('drawn_sticker');
-        //     context.drawImage(sticker, 0, 0, 500, 500);
-        // }
+
     </script>
 
 <?php

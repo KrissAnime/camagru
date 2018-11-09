@@ -94,8 +94,8 @@ try {
 				}
 			}
 			if ($clear){
-				$sql = "INSERT INTO `camagru`.`images` (`user_id`, `img_name`)
-					VALUES ('".$user."', '".$file."')";
+				$sql = "INSERT INTO `camagru`.`images` (`user_id`, `img_name`, `edited`)
+					VALUES ('".$user."', '".$file."', 1)";
 				$con->exec($sql);
 			}
 		}

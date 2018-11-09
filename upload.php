@@ -82,7 +82,6 @@ if ($_SESSION['logged'] && ($_SESSION['logged'] === "user" || $_SESSION['logged'
                     else {
                         echo "An image with that name already exists";
                     }
-
                 }
             }
             else {

@@ -8,6 +8,7 @@ if (isset($_POST['source']) && !empty($_POST['source'])){
     $sql->bindParam('img_name', $img_name);
     $sql->execute();
     echo "success";
+    unlink('../images/'.$img_name);
     return (1);
 }
 

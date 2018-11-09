@@ -33,6 +33,8 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
         }
     }
     
+
+
     $sql = $con->prepare(
         "SELECT `img_name`, `user_id`
         FROM `camagru`.`images`
@@ -58,66 +60,65 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
                             
 
                             echo "<div class='central_grid_item' style=\"background-image:url('$src')\">
-                                <span class='delete' onclick='delete_image(\"$name\");' style='float: right'>&times;</span>
-                            </div>";
-                        }
+                            
+                                </div>";
+                                // 
+                            }
                     }
                     
                 }
                 echo "</div>";
 
-                //Is the begining of the profile sidebar
+                                            //Is the begining of the profile sidebar
                 
-                echo    "<div class='w3-sidebar w3-bar-block w3-grey' style='width:300px;right:2px;top:2px'";
+                                            echo    "<div class='w3-sidebar w3-bar-block w3-grey' style='width:300px;right:2px;top:2px'";
                 
-                //Shows the user profile picture
-                echo    "   <div class='w3-w3-border w3-padding' alt='profile' id='profile'>
-                                <img src='".$pic."' alt='profile' width='300px'/><br/>
-                                <a href='upload_profile.php' class='upload'>Upload</a>
-                                <div style='margin-right:20%' style='min-height: 100%;'>
-                                </div>";
-                
-                //Shows form for updating user details
-    
-                echo "              <div>
-                                        <form action='functions/update.php' method='post' id='update_profile' name='update_profile'>
-                                            <h4>Email:</h4> <input type='text' size='30' id='email' name='email'><br/>
-                                            <h4>Username:</h4> <input type='text' size='30' id='username' name='username'><br/>
-                                            <h4>Password:</h4> <input type='password' minlength=6 size='30' id='password' name='password'><br/>
-                                            <br/><button type='submit' id='save_details'>Save Details</button>
-                                            <a href='profile.php' class='upload'>Cancel</a>
-                                            <br/><a href='profile.php>Cancel</button></a>
-                                        </form>
-                                    </div>
-                            </div>
-                        </div>";
+                                            //Shows the user profile picture
+                                            echo    "   <div class='w3-w3-border w3-padding' alt='profile' id='profile'>
+                                                            <img src='".$pic."' alt='profile' width='300px'/><br/>
+                                                            <a href='upload_profile.php' class='upload'>Upload</a>
+                                                            <form action='functions/update.php' method='post' id='update_profile' name='update_profile'>
+                                                                    <h4>Email:</h4> <input type='text' size='30' id='email' name='email'><br/>
+                                                                    <h4>Username:</h4> <input type='text' size='30' id='username' name='username'><br/>
+                                                                    <h4>Password:</h4> <input type='password' minlength=6 size='30' id='password' name='password'><br/>
+                                                                    <br/><button type='submit' id='save_details'>Save Details</button><br/>
+                                                                    <a href='profile.php' class='upload'>Cancel</a>
+                                                                    <br/><a href='profile.php>Cancel</button></a>
+                                                                </form></div>";
+                                            
+                                            //Shows form for updating user details
+                                
+                                                // echo "          ";
             }
             
-            
+            require('footer.php');
         }
         else{
             echo    "<div class='w3-sidebar w3-bar-block w3-grey' style='width:300px;right:2px;top:2px'>
-            <div class='w3-w3-border w3-padding' alt='profile' id='profile'>
-            <img src='".$pic."' alt='profile' width='270px'/><br/>
-            <a href='upload_profile.php' class='upload'>Upload</a>
-            </div>
-            <div style='margin-right:20%' style='min-height: 100%;'></div>";
-            echo    "<table class='profile_details'> 
-            <tr>
-            <th>User: </th>
-            <th>$username</th>
-            </tr>
-            <tr>
-            <th>Email: </th>
-            <th>$email</th>
-            </tr>
-            </table>
-            <br/><a href='profile.php?edit=true 'button type='submit' id='login'>Edit Details</button></a></div>";
-            echo "<div class='central_grid' l3 s2 style='margin-right:300px'>";
+                        <div class='w3-w3-border w3-padding' alt='profile' id='profile'>
+                             <img src='".$pic."' alt='profile' width='270px'/><br/>
+                            <a href='upload_profile.php' class='upload'>Upload</a>
+                        </div>
+                            <div style='margin-right:20%' style='min-height: 100%;'>
+                            ";
+                echo            "<table class='profile_details'> 
+                                <tr>
+                                <th>User: </th>
+                                <th>$username</th>
+                                </tr>
+                                <tr>
+                                <th>Email: </th>
+                                <th>$email</th>
+                                </tr>
+                                </table>
+                                <br/><a href='profile.php?edit=true 'button type='submit' id='login'>Edit Details</button></a>
+                        </div></div>";
+            echo    "<div class='central_grid' l3 s2 style='margin-right:300px'>";
         
             foreach($val as $row){
                 if ($row['user_id'] === $user){
                     $src = "images/".$row['img_name'];
+                    $name = $row['img_name'];
                     if (file_exists($src)){
                         $num = 0;
                             $sql = $con->prepare("SELECT COUNT(*) as total
@@ -152,25 +153,55 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
                             echo	"<div class='central_grid_item' style=\"background-image:url('$src')\">";
                             if ($num2){
                                 echo	"<i onclick='like_event(event, \"$name\");' id='heart' class='fas fa-heart' style=\"color: white\">$num</i>			
-                                                <div style=\"height: 100%; width: 100%\">
-                                            </div>
+                                            <button onclick='delete_img(\"$name\");'id='delete' style='float: right'>&times;</span>                
+                                            <div style=\"height: 100%; width: 100%\">
+                                                </div>
                                         </div>";
                             }
                             else{
                                 echo	"<i onclick='like_event(event, \"$name\");' id='heart' class='far fa-heart' style=\"color: white\">$num</i>			
-                                                <div style=\"height: 100%; width: 100%\">
-                                            </div>
+                                            <button onclick='delete_img(\"$name\");'id='delete' style='float: right'>&times;</span>                
+                                            <div style=\"height: 100%; width: 100%\">
+                                                </div>
                                         </div>";
                             }
                     }
                 }
                 
             }
-            echo "</div>";
+            echo "</div></div></body>";
+
         }
     }
-    echo "<script src='js/images.js'></script>";
+    
+    ?>
+
+    <script>
+
+	function delete_img(source){
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("POST", "functions/delete.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+		xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		        var comments = document.getElementById('my_comments');
+		        if (this.responseText !== "fail"){
+                    console.log(this.responseText);
+                    location.reload();
+		        }
+		    }
+		}
+        xhttp.send("source="+source);
+        // console.log("testing");
+		// console.log(source);
+		}
+
+    </script>
+    <?php
     require('footer.php');
-?>
+    ?>
+
+    
 
         

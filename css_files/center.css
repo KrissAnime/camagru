@@ -67,6 +67,24 @@ body {
     font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
+.central_grid_mini {
+	display: grid;
+	grid-template-columns: auto auto auto auto auto auto;
+	padding: 10px;
+	grid-gap: 0.5em;
+	min-height: 10vh;
+  }
+
+.central_grid_item {
+	padding: 1vh;
+	width: 100%;
+	height: auto;
+	display: block;
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover;
+}
+
 .central_grid {
 	display: grid;
 	grid-template-columns: 3fr 3fr 3fr;
@@ -75,7 +93,7 @@ body {
 	min-height: 90vh;
   }
 
-.central_grid_item {
+.central_grid_item_mini {
 	padding: 1vh;
 	width: 100%;
 	height: auto;
@@ -145,15 +163,15 @@ body {
     position: relative;
     /* top: 20px;
     right: 50px; */
-    color: white;
-    font-size: 10px;
+    color: black;
+    font-size: 5px;
     font-weight: bold;
     transition: 0.3s;
 }
 
 .delete:hover,
 .delete:focus {
-    color: white;
+    color: black;
     text-decoration: none;
     cursor: pointer;
 }

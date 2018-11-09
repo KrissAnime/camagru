@@ -5,7 +5,7 @@ require_once('../config/setup.php');
 if (isset($_POST['img_name']) && !empty($_POST['img_name'])){
 
 	$img_name = $_POST['img_name'];
-	
+
 	$sql = $con->prepare("SELECT * FROM `camagru`.`comments` WHERE `img_name` = :img_name");
 	$sql->bindParam('img_name', $img_name);
 	$sql->execute();
