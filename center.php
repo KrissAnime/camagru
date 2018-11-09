@@ -34,7 +34,7 @@ $offset = $page * $elem;
 if ($pages == $page || $page > 1){
 	$offset -= 6;
 }
-else if ($page == 1){
+else if ($page == 1 || !isset($_GET)){
 	$offset = 0;
 }
 
@@ -135,7 +135,7 @@ $sql = $con->prepare(
 		echo "<a href='index.php?page=$prev'>&laquo;</a>";
 	}
 	for ($num = 1; $num < $pages; $num++) {
-		if ($num == $page && $page > 1) {
+		if ($num == $page) {
 			echo "<a class='active' href='index.php?page=$num'>$num</a>";
 		}
 		else{

@@ -48,6 +48,49 @@ if ($_SESSION['logged'] === "user" || $_SESSION['logged'] === 'admin') {
             $pic = $pic_org;
         }
         if (!empty($_GET)){
+            if (isset($_GET['error']) && $_GET['error'] == "used"){
+                echo "<div class='central_grid' l3 s2 style='margin-right:300px'>";
+        
+                foreach($val as $row){
+                    // echo $src;
+                    if ($row['user_id'] === $user){
+                        $name = $row['img_name'];
+                        $src = "images/".$name;
+                        if (file_exists($src)){
+                            echo "<div class='central_grid_item' style=\"background-image:url('$src')\">
+                            
+                                </div>";
+                                // 
+                            }
+                    }
+                    
+                }
+                echo "</div>";
+
+                                            //Is the begining of the profile sidebar
+                
+                                            echo    "<div class='w3-sidebar w3-bar-block w3-grey' style='width:300px;right:2px;top:2px'";
+                
+                                            //Shows the user profile picture
+                                            echo    "   <div class='w3-w3-border w3-padding' alt='profile' id='profile'>
+                                                            <img src='".$pic."' alt='profile' width='300px'/><br/>
+                                                            <a href='upload_profile.php' class='upload'>Upload</a>
+                                                            <form action='functions/update.php' method='post' id='update_profile' name='update_profile'>
+                                                                    <h4>Email:</h4> <input type='text' size='30' id='email' name='email'><br/>
+                                                                    <h4>Username:</h4> <input type='text' size='30' id='username' name='username'><br/>
+                                                                    <h4>Password:</h4> <input type='password' minlength=6 size='30' id='password' name='password'><br/>
+                                                                    <br/><button type='submit' id='save_details'>Save Details</button><br/>
+                                                                    <a href='profile.php' class='upload'>Cancel</a>
+                                                                    <br/><a href='profile.php>Cancel</button></a>
+                                                                </form></div>
+                                                            <p>Email or Username in use</p>";
+                                            
+                                            //Shows form for updating user details
+                                
+                                                // echo "          ";
+                                                require('footer.php');
+            }
+        
             if ($_GET['edit'] === "true" || $_GET['update'] === "true"){
                 echo "<div class='central_grid' l3 s2 style='margin-right:300px'>";
         

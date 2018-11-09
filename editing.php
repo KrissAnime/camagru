@@ -16,8 +16,8 @@ else{
 
 <div>
         <div id='camera'>
-                <div id="upload_image" style="position: absolute; background-size: cover; margin: auto; width:500px; height:300px"></div>
-                <div id="overlay" style="position: absolute; background-size: cover; margin: auto; width:500px; height:300px"></div>
+                <div id="upload_image" style="position: absolute; background-size: cover; background-position: center; width:500px; height:300px"></div>
+                <div id="overlay" style="position: absolute; background-size: cover; background-position: center; width:500px; height:300px"></div>
                 <video id='video' width="500" height="300" autoplay></video><br/>
                 <button type='button' id='capture'  disabled>Capture Photo</button>
                 <form action="functions/camera.php" method="POST" enctype="multipart/form-data" "">
@@ -27,7 +27,8 @@ else{
                 </form>
         </div>
         <canvas id="canvas" width="500" height="300">
-            
+        </canvas>
+        <canvas id="canvas_2" width="500" height="300" style="display:none">
         </canvas>
 </div>
 

@@ -9,19 +9,25 @@ if (!isset($_SESSION)){
 }
 
 $user_id = $_SESSION['current'];
-    // print_r($_SESSION);
-    // echo $_POST['username'];
-    // echo "empty";
     if (isset($_POST['email']) && !empty($_POST['email'])){
         $email = $_POST['email'];
         $username = $_POST['username'];
         if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === $_POST['email']){
-            $subject = 'Camagru Email Verification';
-            $message = 'Copy the following link into your url: '.'http://localhost:8080/camagru/functions/update.php?verify=';
-            verify_email($email, $subject, $message);
-            $stmt = $con->prepare("UPDATE `camagru`.`users` SET `verified` = 0 WHERE `user_id` = :user_id");
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->execute();
+            if (is_new_user($username, $email, $con)){
+                $subject = 'Camagru Email Verification';
+                $message = 'Copy the following link into your url: '.'http://localhost:8080/camagru/functions/update.php?verify=';
+                verify_email($email, $subject, $message);
+                $stmt = $con->prepare("UPDATE `camagru`.`users` SET `verified` = 0 WHERE `user_id` = :user_id");
+                $stmt->bindParam(':user_id', $user_id);
+                $stmt->execute();
+    
+                $stmt = $con->prepare("UPDATE `camagru`.`users` SET `email` = :email WHERE `user_id` = :user_id");
+                $stmt->bindParam(':email', $email);
+                $stmt->execute();
+            }
+            else{
+                header('Location: ../profile.php?error=used');
+            }
         }
     }
     if (isset($_POST['password']) && !empty($_POST['password'])){

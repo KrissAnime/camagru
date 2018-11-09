@@ -36,5 +36,9 @@ if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['use
 		header('Location: ../login.php?error=verify');
 	}
 }
+else{
+	header('Location: ../login.php');
+}
+
 
 ?>
