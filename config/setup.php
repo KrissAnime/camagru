@@ -156,8 +156,8 @@ try {
 	}
 
 	if ($i){
-		$krissadmin  = encryption('FroZ3nC@tSn1per');
-		$rootadmin = encryption('user123');
+		$krissadmin  = encryption('');
+		$rootadmin = encryption('');
 		$sql = $con->prepare("INSERT INTO `camagru`.`users` (
 			firstname, lastname, username, email, `password`, verified, `admin`)
 			VALUES ('Kriss', 'Anime', 'KrissAdmin', 'krissultimatum@gmail.com', :pass1, 1, 1),
